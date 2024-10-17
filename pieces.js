@@ -36,3 +36,49 @@ for (let i = 0; i < pieces.length; i++) {
 
  }
  
+ /**
+  * Cette function trie le prix dans l'ordre croissant
+  * 
+  */
+ const boutonTrierCroissant = document.querySelector(".btn-trierCroissant");
+ boutonTrierCroissant.addEventListener("click",function(){
+    const piecesOrdonnées = Array.from(pieces);
+    piecesOrdonnées.sort(function(a,b){
+        return a.prix - b.prix
+    }); console.log(piecesOrdonnées);
+ });
+
+
+  /**
+  * Cette function filtre les pièces non abordables 
+  * 
+  */
+ const boutonFiltrer = document.querySelector(".btn-filtrer")
+ boutonFiltrer.addEventListener("click", function(){
+    const piecesFiltrees = pieces.filter(function(piece) {
+        return piece.prix >= 35
+    }); console.log(piecesFiltrees)
+ })
+
+   /**
+  * Cette function filtre seulement les pièces avec description 
+  * 
+  */
+   const boutonFiltreDescription = document.querySelector(".btn-filtreDescription")
+   boutonFiltreDescription.addEventListener("click",function(){
+        const piecesDecrites = pieces.filter(function(piece) {
+            return piece.description
+        }); console.log(piecesDecrites)
+   })
+
+    /**
+  * Cette function trie le prix dans l'ordre décroissant croissant
+  * 
+  */
+ const boutonTrierDecroissant = document.querySelector(".btn-trierDecroissant");
+ boutonTrierDecroissant.addEventListener("click",function(){
+    const piecesOrdonnées = Array.from(pieces);
+    piecesOrdonnées.sort(function(a,b){
+        return b.prix - a.prix
+    }); console.log(piecesOrdonnées);
+ });
