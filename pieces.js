@@ -40,8 +40,8 @@ for (let i = 0; i < pieces.length; i++) {
   * Cette function trie le prix dans l'ordre croissant
   * 
   */
- const boutonTrierCroissant = document.querySelector(".btn-trierCroissant");
- boutonTrierCroissant.addEventListener("click",function(){
+ const boutonTrier = document.querySelector(".btn-trier");
+ boutonTrier.addEventListener("click",function(){
     const piecesOrdonnées = Array.from(pieces);
     piecesOrdonnées.sort(function(a,b){
         return a.prix - b.prix
@@ -61,24 +61,46 @@ for (let i = 0; i < pieces.length; i++) {
  })
 
    /**
-  * Cette function filtre seulement les pièces avec description 
+  * Cette function filtre seulement les pièces sans description 
   * 
   */
-   const boutonFiltreDescription = document.querySelector(".btn-filtreDescription")
-   boutonFiltreDescription.addEventListener("click",function(){
-        const piecesDecrites = pieces.filter(function(piece) {
-            return piece.description
-        }); console.log(piecesDecrites)
-   })
-
+   const boutonNoDescription = document.querySelector(".btn-nodesc");
+   boutonNoDescription.addEventListener("click", function () {
+       const piecesFiltrees = pieces.filter(function (piece) {
+           return !piece.description
+       });
+      console.log(piecesFiltrees)
+   });
     /**
   * Cette function trie le prix dans l'ordre décroissant croissant
   * 
   */
- const boutonTrierDecroissant = document.querySelector(".btn-trierDecroissant");
- boutonTrierDecroissant.addEventListener("click",function(){
-    const piecesOrdonnées = Array.from(pieces);
-    piecesOrdonnées.sort(function(a,b){
-        return b.prix - a.prix
-    }); console.log(piecesOrdonnées);
- });
+    const boutonDecroissant = document.querySelector(".btn-decroissant");
+    boutonDecroissant.addEventListener("click", function () {
+        const piecesOrdonnees = Array.from(pieces);
+        piecesOrdonnees.sort(function (a, b) {
+            return b.prix - a.prix;
+         });
+         console.log(piecesOrdonnees);
+    });
+
+//On crée un tableau noms contenant les noms des pièces, puis supprime les noms de toutes les pièces dont le prix est supérieur à 35    
+const nomsPieces = pieces.map((piece) => piece.nom);
+for(let i = pieces.length -1 ; i >= 0; i--){
+   if(pieces[i].prix > 35){
+       nomsPieces.splice(i,1);
+       console.log(pieces[i].prix);
+   }
+}
+console.log(nomsPieces)
+
+//Création de la liste
+const abordablesElements = document.createElement('ul');
+//Ajout de chaque nom à la liste
+for(let i=0; i < nomsPieces.length; i++) {
+    const nomElement = document.createElement('li');
+    nomElement.innerText = nomsPieces[i];
+    abordablesElements.appendChild(nomElement)
+}
+//Ajout  de l'en-tête puis de la liste au bloc résultats filtres
+document.querySelector(".abordables").appendChild(abordablesElements);
