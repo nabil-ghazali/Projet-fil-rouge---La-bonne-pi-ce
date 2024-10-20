@@ -104,3 +104,17 @@ for(let i=0; i < nomsPieces.length; i++) {
 }
 //Ajout  de l'en-tête puis de la liste au bloc résultats filtres
 document.querySelector(".abordables").appendChild(abordablesElements);
+
+
+const piecesDisponible = pieces.map((piece) => piece.disponibilite)
+const elementsDisponible = document.createElement('ul');
+    for(let i = pieces.length -1 ; i >= 0; i--){
+    if(pieces[i].disponibilite === true){
+        const nomElementDisponible = document.createElement('li');
+        nomElementDisponible.innerText = `${pieces[i].nom} - ${pieces[i].prix} €`;
+        elementsDisponible.appendChild(nomElementDisponible)
+        console.log(pieces[i].nom);
+    }
+ }
+
+ document.querySelector(".disponibles").appendChild(elementsDisponible)
