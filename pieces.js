@@ -102,6 +102,7 @@ const piecesFiltrees = pieces.filter(function (piece) {
             return b.prix - a.prix;
          });
         //console.log(piecesOrdonnees);
+        //Efface le contenu de la balise section 'filtres'
         document.querySelector(".fiches").innerHTML = "";
         genererPieces(piecesOrdonnees);
     });
@@ -161,6 +162,20 @@ for(let i=0 ; i < nomsDisponibles.length ; i++){
 }
 
 document.querySelector('.disponibles').appendChild(disponiblesElement);
+//Récupérer l'élément qui permet d'afficher la valeur du prix dans la balise <outpout>
+const valeurAffichee = document.querySelector("#valeur");
+//Récupérer le prix dans la balise <input>
+const inputPrixMax = document.querySelector("#prix-max");
+//On correspond le prix dans la balise <output> à celui de la valeur du prix dans <input>
+valeurAffichee.textContent = inputPrixMax.value;
 
-// Efface le contenu de la balise body et donc l’écran
-//document.querySelector(".fiches").innerHTML = '';
+//Selon l'event du curseur la valeur du prix maximum s'affiche et les pièces sont filtrés et renvoyer   
+inputPrixMax.addEventListener("input", (event) => {
+  valeurAffichee.textContent = event.target.value;
+  const piecesFiltrees = pieces.filter(function(piece){
+    return piece.prix <=inputPrixMax.value;
+  });
+  //on efface le contenu de la section "fiches" et on réaffiche les pièces filtrées
+    document.querySelector(".fiches").innerHTML='';
+    genererPieces(piecesFiltrees)
+});
