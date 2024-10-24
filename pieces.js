@@ -1,11 +1,11 @@
 import { ajoutListenersAvis } from "./avis.js";
 
 // Récupération des pièces depuis le fichier JSON
-// const reponse = await fetch('pieces-autos.json');
-// const pieces = await reponse.json();
+const reponse = await fetch('http://localhost:8081/avis');
+const pieces = await reponse.json();
 
 /*Chaînage de promesses : Ici, fetch retourne une promesse, et la méthode then est utilisée pour chaîner la promesse. Une fois que la réponse est disponible, pieces.json() est appelé dans le bloc then.*/
-const pieces = await fetch("pieces-autos.json").then(pieces => pieces.json());
+// const pieces = await fetch("pieces-autos.json").then(pieces => pieces.json());
 
 
 function genererPieces(pieces) {
