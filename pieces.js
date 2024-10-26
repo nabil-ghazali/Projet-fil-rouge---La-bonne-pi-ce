@@ -1,12 +1,23 @@
 import { ajoutListenersAvis,ajoutListenerEnvoyerAvis } from "./avis.js";
 
-// Récupération des pièces depuis le fichier JSON
-const reponse = await fetch('http://localhost:8081/pieces');
-const pieces = await reponse.json();
+//Récupération des pièces éventuellement stockés dans le localStorage
+let pieces = window.localStorage.getItem("pieces");
+if(pieces === null){
+    // Récupération des pièces depuis le fichier JSON
+    const reponse = await fetch('http://localhost:8081/pieces');
+          pieces = await reponse.json();
+    /*Chaînage de promesses : Ici, fetch retourne une promesse, et la méthode then est utilisée pour chaîner la promesse. Une fois que la réponse est disponible, pieces.json() est appelé dans le bloc then.*/
+    // const pieces = await fetch("pieces-autos.json").then(pieces => pieces.json());
 
-/*Chaînage de promesses : Ici, fetch retourne une promesse, et la méthode then est utilisée pour chaîner la promesse. Une fois que la réponse est disponible, pieces.json() est appelé dans le bloc then.*/
-// const pieces = await fetch("pieces-autos.json").then(pieces => pieces.json());
+    //Transformation des pièces en JSON 
+    const valeursPieces = JSON.stringify(pieces)
+    //Stockage des informations en localStorage
+    window.localStorage.setItem("pieces",valeursPieces);
+} else {
+    pieces= JSON.parse(pieces);
+}
 
+//Fonction envoie des avis
 ajoutListenerEnvoyerAvis()
 
 function genererPieces(pieces) {
@@ -187,7 +198,14 @@ inputPrixMax.addEventListener("input", (event) => {
   const piecesFiltrees = pieces.filter(function(piece){
     return piece.prix <=inputPrixMax.value;
   });
-  //on efface le contenu de la section "fiches" et on réaffiche les pièces filtrées
+    //on efface le contenu de la section "fiches" et on réaffiche les pièces filtrées
     document.querySelector(".fiches").innerHTML='';
     genererPieces(piecesFiltrees)
 });
+
+//Ajout du listener pour mettre à jour les données du localStorage
+const boutonMettreAJour = document.querySelector(".btn-maj")
+boutonMettreAJour.addEventListener("click",function(){
+    window.localStorage.removeItem("pieces")
+})
+

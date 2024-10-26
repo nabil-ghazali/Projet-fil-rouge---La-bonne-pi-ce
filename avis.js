@@ -1,14 +1,21 @@
 //Cette fonction permet de récupérer les avis depuis l'API-HTTP grâce à FETCH et au verbe GET
 export function ajoutListenersAvis() {
-    const piecesElements = document.querySelectorAll(".fiches article button");
 
+    const piecesElements = document.querySelectorAll(".fiches article button");
     for (let i = 0; i < piecesElements.length; i++) {
         piecesElements[i].addEventListener("click", async function (event) {
            /* ... */
             const id = event.target.dataset.id;
+            let avis = window.localStorage.getItem(avis)
+            if(avis === null){
             const reponse = await fetch(`http://localhost:8081/pieces/${id}/avis`);
-            const avis = await reponse.json();
+                 avis = await reponse.json();
+                 const valeursAvis = JSON.stringify(avis)
+                 window.localStorage.setItem("avis", valeursAvis)
+            }else{
+                avis= JSON.parse(avis);
 
+            }
             const pieceElement = event.target.parentElement;
 
             const avisElement = document.createElement("p");
