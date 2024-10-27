@@ -6,25 +6,23 @@ export function ajoutListenersAvis() {
         piecesElements[i].addEventListener("click", async function (event) {
            /* ... */
             const id = event.target.dataset.id;
-            let avis = window.localStorage.getItem(avis)
-            if(avis === null){
+     
             const reponse = await fetch(`http://localhost:8081/pieces/${id}/avis`);
-                 avis = await reponse.json();
-                 const valeursAvis = JSON.stringify(avis)
-                 window.localStorage.setItem("avis", valeursAvis)
-            }else{
-                avis= JSON.parse(avis);
-
-            }
+            const avis = await reponse.json();
+            window.localStorage.setItem(`avis-piece-${id}`, JSON.stringify(avis))
             const pieceElement = event.target.parentElement;
+            afficherAvis(pieceElement,avis)
 
-            const avisElement = document.createElement("p");
-            for (let i = 0; i < avis.length; i++) {
-            avisElement.innerHTML += `${avis[i].utilisateur}: ${avis[i].commentaire} <br>`;
-            }
-            pieceElement.appendChild(avisElement);
       });
     }
+}
+
+export function afficherAvis(pieceElement, avis){
+    const avisElement = document.createElement("p");
+    for (let i = 0; i < avis.length; i++) {
+    avisElement.innerHTML += `${avis[i].utilisateur}: ${avis[i].commentaire} <br>`;
+    }
+    pieceElement.appendChild(avisElement);
 }
 
 //Cette fonction permet de d'ajouter les avis depuis l'API-HTTP grâce à FETCH et au verbe POST
