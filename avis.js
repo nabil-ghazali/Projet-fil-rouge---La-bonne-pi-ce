@@ -52,4 +52,14 @@ export function ajoutListenerEnvoyerAvis() {
 });
 
 }
- 
+
+//Fonction qui affiche un graphique des avis
+export async function afficherGraphiqueAvis(){
+    // Votre code ici
+    }
+    // Calcul du nombre total de commentaires par quantité d'étoiles attribuées
+    const avis = await fetch("http://localhost:8081/avis").then(avis => avis.json());
+    const nb_commentaires = [0, 0, 0, 0, 0];
+    for (let commentaire of avis) {
+      nb_commentaires[commentaire.nbEtoiles - 1]++;
+    }
