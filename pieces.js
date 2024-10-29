@@ -78,7 +78,8 @@ for(let i = 0; i < pieces.length; i++){
     const avis = JSON.parse(avisJson);
 
     if(avis !== null){
-        const pieceElement = document.querySelector(`article[data-id="${id}"]`)
+        const pieceElement = document.querySelector(`article[data-id="${id}"]`);
+        afficherAvis(pieceElement, avis);
     }
 }
 
@@ -216,7 +217,7 @@ inputPrixMax.addEventListener("input", (event) => {
 const boutonMettreAJour = document.querySelector(".btn-maj")
 boutonMettreAJour.addEventListener("click",function(){
     window.localStorage.removeItem("pieces")
-    afficherAvis(pieceElement, avis)
+    // afficherAvis(pieceElement, avis)
 })
 
 await afficherGraphiqueAvis();

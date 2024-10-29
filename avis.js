@@ -1,3 +1,4 @@
+/* global Chart */
 //Cette fonction permet de récupérer les avis depuis l'API-HTTP grâce à FETCH et au verbe GET
 export function ajoutListenersAvis() {
 
@@ -83,7 +84,7 @@ export async function afficherGraphiqueAvis(){
             },
         };
         // Rendu du graphique dans l'élément canvas
-        const graphiqueAvis = new Chart(
+        new Chart(
             document.querySelector("#graphique-avis"),
             config,
         );
